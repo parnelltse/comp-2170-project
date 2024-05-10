@@ -18,7 +18,7 @@ export default class Task {
         this.dragAndDropFn = dragAndDropFn;
         this.stage = stage;
     }
-// generateCardHTML is for generate a html element that include the card content.
+// generateCardHTML is for generating an html element that includes the card content.
 generateHtmlCard = () => {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add("card-container");
@@ -37,7 +37,7 @@ generateHtmlCard = () => {
     const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
     editButton.innerHTML = "Edit";
-    deleteButton.innerHTML = "Delete";
+    deleteButton.innerHTML = "Remove";
 
     editButton.addEventListener('click', () => { this.editFn(this.id) });
     deleteButton.addEventListener('click', () => { this.removeFn(this.id) });
