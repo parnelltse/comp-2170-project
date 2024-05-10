@@ -8,6 +8,7 @@ export default class Task {
     removeFn;
     dragAndDropFn;
 
+    // default, data will be pulled from js file
     constructor(id, name = "", description = "", dueDate = "2024-01-01", editFn, removeFn, dragAndDropFn, stage = 0) {
         this.id = id;
         this.name = name
