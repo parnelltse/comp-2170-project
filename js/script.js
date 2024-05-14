@@ -243,3 +243,10 @@ closeBtn.addEventListener("click", closeOverlayer);
 window.addEventListener("load", (event) => {
 	init();
 });
+
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' || event.keyCode === 27) {
+		overlayer.setAttribute("style", "display:none;");
+    }
+});
