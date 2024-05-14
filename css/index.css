@@ -1,10 +1,30 @@
+:root {
+    --background-color: #345ce0;
+    --stage-board-color: #b3e4e7;
+}
+
 * {
     padding: 0px;
     margin: 0px;
 }
 
 body {
-    background-color: #ba7c7c;
+    background-color: var(--background-color);
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1{
+    text-align: left;
+    width: 100%;
+    padding-left: 30px;
+    color: white;
+}
+
+h2{
+    margin: 5px 15px;
+    color: white;
 }
 
 .content-container {
@@ -25,22 +45,34 @@ body {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    column-gap: 20px;
+    column-gap: 40px;
     margin: 0px 100px;
+    padding: 10px 50px;
+}
+
+.header{
+    background: rgba(0,0,0, 0.4);
 }
 
 .drag-and-drop-container {
-    flex: 1 1 auto;
-    background-color: #857f7f;
-    height: 80vh;
+    flex: 0 1 250px;
+    background-color: #d46d6d;
+    height: 90vh;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 10px;
+
 }
 
 .drag-and-drop-zone {
-   
+
     height: max-content;
-    width: 80%;
-    border: 1 dotted #4d4d4d;
-    min-height: 80%;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -48,11 +80,25 @@ body {
     justify-content: flex-start;
     align-items: center;
     row-gap: 10px;
+    width: 80%;
+    margin: auto;
+    border: 0px;
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .card-container {
     background-color: white;
     padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+    row-gap: 5px;
 }
 
 .overlayer {
@@ -89,7 +135,6 @@ body {
 }
 
 .form-container div label {
-
     width: 40%;
     display: block;
 }
@@ -103,13 +148,46 @@ body {
 
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-content: center;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 
 }
-.drag-and-drop-canvas{
+
+.drag-and-drop-canvas {
     row-gap: 20px;
+    justify-content: flex-start;
+}
+
+
+.error-message {
+    flex: 2 0 auto;
+    color: red;
+    height: 20px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    column-gap: 10px;
+}
+
+.create-btn{
+    margin-bottom: 20px;
+    width: 80%;
+    padding: 5px;
+    border-radius: 10px;
+    background: none;
+    border: 0px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.button-lish{
+    
 }

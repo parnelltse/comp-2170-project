@@ -35,19 +35,24 @@ generateHtmlCard = () => {
     const dudDateDiv = document.createElement('div');
     dudDateDiv.innerHTML = "Due Date:" + this.dueDate;
 
+    const btnDiv = document.createElement('div');
+    btnDiv.classList.add("button-container");
     const editButton = document.createElement("button");
-    const deleteButton = document.createElement("button");
+    const removeButton = document.createElement("button");
     editButton.innerHTML = "Edit";
-    deleteButton.innerHTML = "Remove";
+    removeButton.innerHTML = "Remove";
+    btnDiv.appendChild(editButton);
+    btnDiv.appendChild(removeButton);
+
 
     editButton.addEventListener('click', () => { this.editFn(this.id) });
-    deleteButton.addEventListener('click', () => { this.removeFn(this.id) });
+    removeButton.addEventListener('click', () => { this.removeFn(this.id) });
 
     cardContainer.appendChild(titleDiv);
     cardContainer.appendChild(descriptionDiv);
     cardContainer.appendChild(dudDateDiv);
     cardContainer.appendChild(editButton);
-    cardContainer.appendChild(deleteButton);
+    cardContainer.appendChild(removeButton);
     return cardContainer;
 }
 }

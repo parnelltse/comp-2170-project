@@ -20,47 +20,29 @@ const formDescription = document.querySelector("#taskDescription");
 const formDueDate = document.querySelector("#taskDueDate");
 const addTaskBtn = document.querySelector("#addTaskBtn");
 const closeBtn = document.querySelector("#closeBtn");
+const taskNameErroMessage = document.querySelector("#taskNameErroMessage");
+const descriptionErroMessage = document.querySelector("#descriptionErroMessage");
+const dueDateErroMessage = document.querySelector("#dueDateErroMessage");
 
-const init = () => {};
-
-const dragstartEvent = (event) => {};
-
-const dropOverEvent = (event) => {};
-const dropEvent = (event) => {};
-
-const dragAndDropCanvasPerpare = (stage) => {};
-
-const dragBoxPerpare = () => {};
-
-const dataPerpare = () => {};
-
-addTaskBtn.addEventListener("click", submitForm);
-closeBtn.addEventListener("click", closeOverlayer);
-
-window.addEventListener("load", (event) => {
-	init();
-	dataPerpare();
-	clearFormData();
-});
 
 const init = () => {
 	// init function;
 	dragBoxPerpare();
+    dataPrepare();
+    clearFormData();
  }
  
  
  const dragstartEvent = (event) => {
-	console.log(event);
 	obj = event.target;
-	console.log(obj);
  }
  
  
  const dropOverEvent = (event) => {
 	event.preventDefault()
  }
+
  const dropEvent = (event) => {
-	console.log(event);
 	if (event.target.dataset.stageId) {
 		event.target.prepend(obj);
 		updateTaskStatus(obj.dataset.taskId, event.dataset.stageId)
@@ -83,13 +65,10 @@ const init = () => {
 	createTaskButton.addEventListener('click', createTask);
 	createTaskButton.innerHTML = 'Create Task';
  
- 
 	parentDiv.appendChild(h2);
 	parentDiv.appendChild(dragAndDropContainer);
 	parentDiv.appendChild(createTaskButton);
 	dragAndDropCanvas.append(parentDiv);
- 
- 
  }
  
  
@@ -107,30 +86,26 @@ const init = () => {
  }
  
  
- const dataPerpare = () => {
+ const dataPrepare = () => {
 	taskList.push(new Task(1, "Task 1", "This is a task 1.", "2024-05-12", editCard, removeCard, dragstartEvent, 0));
 	taskList.push(new Task(2, "Task 2", "This is a task 2.", "2024-05-13", editCard, removeCard, dragstartEvent, 1));
 	taskList.push(new Task(3, "Task 3", "This is a task 3.", "2024-05-14", editCard, removeCard, dragstartEvent, 2));
 	taskList.push(new Task(4, "Task 4", "This is a task 4.", "2024-05-15", editCard, removeCard, dragstartEvent, 3));
  
- 
 	taskList.map((task) => {
 		const element = task.generateHtmlCard();
 		const targetElement = document.querySelector(`[data-stage-id="${task.stage}"]`);
 		targetElement.appendChild(element);
- 
- 
 	});
  }
  
-
 const updateTaskStatus = (taskId, stageId) => {
-	stageList.map((item) => {
-		if (item.id == taskId) {
-			item.stage = stageId;
-		}
-	});
-};
+    const task = getTaskById(taskId);
+    const index = taskList.indexOf(task);
+    taskList.splice(index, 1);
+    task.stage = stageId;
+    taskList.push(task);
+}
 
 const createTask = (event) => {
 	const stageID = event.target.dataset.buttonStageId;
@@ -141,7 +116,7 @@ const createTask = (event) => {
 };
 
 const editCard = (id) => {
-	const task = getTastById(id);
+	const task = getTaskById(id);
 	clearFormData();
 	formTaskName.value = task.name;
 	formTaskId.value = task.id;
@@ -151,19 +126,45 @@ const editCard = (id) => {
 	overlayer.setAttribute("style", "display:flex;");
 };
 const removeCard = (id) => {
-	const isConfirm = confirm("Are you confirm deleted this record?");
+	const isConfirm = confirm("Are you confirm removed this record?");
 	if (!isConfirm) return;
-	const task = getTastById(id);
+	const task = getTaskById(id);
 	const index = taskList.indexOf(task);
 	const element = document.querySelector(`[data-task-id="${id}"]`);
-	console.log(index);
 	taskList.splice(index, 1);
-	console.log(taskList);
 	element.remove();
 };
 
+
+const formValidation = () => {
+    let isValid = true;
+
+    clearValidation();
+    if (formTaskName.value == "") {
+        taskNameErroMessage.innerHTML = "* The task name cannot be null.";
+        isValid = false;
+    }
+
+    if (formDescription.value == "") {
+        descriptionErroMessage.innerHTML = "* The description cannot be null.";
+        isValid = false;
+    }
+    if (formDueDate.value == "") {
+        dueDateErroMessage.innerHTML = "* The Due Date cannot be null.";
+        isValid = false;
+    }
+    return isValid;
+}
+
+const clearValidation = () => {
+    taskNameErroMessage.innerHTML = "";
+    descriptionErroMessage.innerHTML = "";
+    dueDateErroMessage.innerHTML = "";
+}
+
 const submitForm = (event) => {
 	event.preventDefault();
+    if (!formValidation()) return false;
 	if (formTaskId.value == null || formTaskId.value == "") {
 		console.log(formTaskId.value);
 		//new Taskid
@@ -220,7 +221,7 @@ const nextId = () => {
 	return taskList.sort((a, b) => b.id - a.id)[0].id + 1;
 };
 
-const getTastById = (id) => {
+const getTaskById = (id) => {
 	return taskList.filter((item) => id === item.id)[0];
 };
 
@@ -229,4 +230,13 @@ const clearFormData = () => {
 	formTaskId.value = "";
 	formDescription.value = "";
 	formDueDate.value = "";
+    clearValidation();
 };
+
+
+addTaskBtn.addEventListener("click", submitForm);
+closeBtn.addEventListener("click", closeOverlayer);
+
+window.addEventListener("load", (event) => {
+	init();
+});
