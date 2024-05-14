@@ -17,6 +17,36 @@
             
         </div>
     </div>
+    <div class="overlayer">
+        <div class="form-container">
+            <form id="taskForm">
+                <div>
+                    <label for="taskName">Task Name</label>
+                    <input id="taskName" value="" name="taskName" />
+                    <input id="taskId" value="" name="taskId" type="hidden" />
+                </div>
+                <div>
+                    <label for="taskDescription">Description</label>
+                    <input id="taskDescription" value="" name="taskDescription" />
+                </div>
+                <div>
+                    <label for="taskDueDate">Due Date </label>
+                    <input id="taskDueDate" type="date" value="" name="taskDueDate" />
+                </div>
+                <div>
+                    <label for="stageId">Stage</label>
+                    <select id="stageId" >
+                       
+                    </select>
+                </div>
+                <div>
+                    <button id="addTaskBtn">Add / Edit</button>
+                    <button id="closeBtn">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+ 
     <script type="module" src="./js/script.js"></script>
 </body>
 </html>

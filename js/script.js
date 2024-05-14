@@ -43,6 +43,87 @@ window.addEventListener("load", (event) => {
 	clearFormData();
 });
 
+const init = () => {
+	// init function;
+	dragBoxPerpare();
+ }
+ 
+ 
+ const dragstartEvent = (event) => {
+	console.log(event);
+	obj = event.target;
+	console.log(obj);
+ }
+ 
+ 
+ const dropOverEvent = (event) => {
+	event.preventDefault()
+ }
+ const dropEvent = (event) => {
+	console.log(event);
+	if (event.target.dataset.stageId) {
+		event.target.prepend(obj);
+		updateTaskStatus(obj.dataset.taskId, event.dataset.stageId)
+	}
+ }
+ 
+ 
+ const dragAndDropCanvasPerpare = (stage) => {
+	const parentDiv = document.createElement('div');
+	parentDiv.classList.add("drag-and-drop-container");
+	const h2 = document.createElement('h2');
+	h2.innerHTML = stage.name;
+	const dragAndDropContainer = document.createElement('div');
+	dragAndDropContainer.classList.add("drag-and-drop-zone");
+	dragAndDropContainer.setAttribute(`data-stage-id`, stage.id);
+	dragAndDropContainer.addEventListener('dragover', dropOverEvent);
+	dragAndDropContainer.addEventListener('drop', dropEvent);
+	const createTaskButton = document.createElement('button');
+	createTaskButton.setAttribute(`data-button-stage-id`, stage.id);
+	createTaskButton.addEventListener('click', createTask);
+	createTaskButton.innerHTML = 'Create Task';
+ 
+ 
+	parentDiv.appendChild(h2);
+	parentDiv.appendChild(dragAndDropContainer);
+	parentDiv.appendChild(createTaskButton);
+	dragAndDropCanvas.append(parentDiv);
+ 
+ 
+ }
+ 
+ 
+ const dragBoxPerpare = () => {
+	while (formstage.firstChild) {
+		formstage.removeChild(formstage.lastChild);
+	}
+	stageList.map((stage) => {
+		dragAndDropCanvasPerpare(stage);
+		const option = document.createElement("option");
+		option.value = stage.id;
+		option.innerHTML = stage.name;
+		formstage.appendChild(option);
+	});
+ }
+ 
+ 
+ const dataPerpare = () => {
+	taskList.push(new Task(1, "Task 1", "This is a task 1.", "2024-05-12", editCard, removeCard, dragstartEvent, 0));
+	taskList.push(new Task(2, "Task 2", "This is a task 2.", "2024-05-13", editCard, removeCard, dragstartEvent, 1));
+	taskList.push(new Task(3, "Task 3", "This is a task 3.", "2024-05-14", editCard, removeCard, dragstartEvent, 2));
+	taskList.push(new Task(4, "Task 4", "This is a task 4.", "2024-05-15", editCard, removeCard, dragstartEvent, 3));
+ 
+ 
+	taskList.map((task) => {
+		const element = task.generateHtmlCard();
+		const targetElement = document.querySelector(`[data-stage-id="${task.stage}"]`);
+		targetElement.appendChild(element);
+ 
+ 
+	});
+ }
+ 
+
 const updateTaskStatus = (taskId, stageId) => {
 	stageList.map((item) => {
 		if (item.id == taskId) {
