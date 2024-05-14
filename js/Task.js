@@ -51,8 +51,7 @@ generateHtmlCard = () => {
     cardContainer.appendChild(titleDiv);
     cardContainer.appendChild(descriptionDiv);
     cardContainer.appendChild(dudDateDiv);
-    cardContainer.appendChild(editButton);
-    cardContainer.appendChild(removeButton);
+    cardContainer.appendChild(btnDiv);
     return cardContainer;
 }
 }

@@ -43,9 +43,10 @@ const init = () => {
  }
 
  const dropEvent = (event) => {
+	console.log(event)
 	if (event.target.dataset.stageId) {
 		event.target.prepend(obj);
-		updateTaskStatus(obj.dataset.taskId, event.dataset.stageId)
+		updateTaskStatus(obj.dataset.taskId, event.target.dataset.stageId)
 	}
  }
  
@@ -63,7 +64,8 @@ const init = () => {
 	const createTaskButton = document.createElement('button');
 	createTaskButton.setAttribute(`data-button-stage-id`, stage.id);
 	createTaskButton.addEventListener('click', createTask);
-	createTaskButton.innerHTML = 'Create Task';
+	createTaskButton.innerHTML = 'Create Task +';
+	createTaskButton.classList.add("create-btn")
  
 	parentDiv.appendChild(h2);
 	parentDiv.appendChild(dragAndDropContainer);
@@ -101,6 +103,7 @@ const init = () => {
  
 const updateTaskStatus = (taskId, stageId) => {
     const task = getTaskById(taskId);
+	console.log(task);
     const index = taskList.indexOf(task);
     taskList.splice(index, 1);
     task.stage = stageId;
@@ -222,7 +225,7 @@ const nextId = () => {
 };
 
 const getTaskById = (id) => {
-	return taskList.filter((item) => id === item.id)[0];
+	return taskList.filter((item) => id == item.id)[0];
 };
 
 const clearFormData = () => {
