@@ -1,5 +1,5 @@
 :root {
-    --background-color: #345ce0;
+    --background-color: #0095ff;
     --stage-board-color: #b3e4e7;
 }
 
@@ -56,7 +56,7 @@ h2{
 
 .drag-and-drop-container {
     flex: 0 1 250px;
-    background-color: #d46d6d;
+    background: linear-gradient(145deg, #6d83d4, #63e0ff);
     height: 90vh;
     border-radius: 3px;
     display: flex;
